@@ -1,0 +1,43 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "question",
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [
+          "category"
+        ],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [],
+        "warnings": [
+          {
+            "type": "columnDropped",
+            "message": "Column \"category\" of table \"question\" will be dropped.",
+            "table": "question",
+            "columns": [
+              "category"
+            ],
+            "destrucive": true
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column \"category\" of table \"question\" will be dropped.",
+      "table": "question",
+      "columns": [
+        "category"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

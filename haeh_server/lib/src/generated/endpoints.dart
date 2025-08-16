@@ -11,7 +11,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../greeting_endpoint.dart' as _i2;
-import '../translation_endpoint.dart' as _i3;
+import '../question_endpoint.dart' as _i3;
+import '../translation_endpoint.dart' as _i4;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -23,7 +24,13 @@ class Endpoints extends _i1.EndpointDispatch {
           'greeting',
           null,
         ),
-      'translation': _i3.TranslationEndpoint()
+      'question': _i3.QuestionEndpoint()
+        ..initialize(
+          server,
+          'question',
+          null,
+        ),
+      'translation': _i4.TranslationEndpoint()
         ..initialize(
           server,
           'translation',
@@ -54,6 +61,22 @@ class Endpoints extends _i1.EndpointDispatch {
         )
       },
     );
+    connectors['question'] = _i1.EndpointConnector(
+      name: 'question',
+      endpoint: endpoints['question']!,
+      methodConnectors: {
+        'getTranslations': _i1.MethodConnector(
+          name: 'getTranslations',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['question'] as _i3.QuestionEndpoint)
+                  .getTranslations(session),
+        )
+      },
+    );
     connectors['translation'] = _i1.EndpointConnector(
       name: 'translation',
       endpoint: endpoints['translation']!,
@@ -65,7 +88,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['translation'] as _i3.TranslationEndpoint)
+              (endpoints['translation'] as _i4.TranslationEndpoint)
                   .getTranslations(session),
         )
       },

@@ -19,14 +19,12 @@ abstract class Question
   Question._({
     this.id,
     required this.audioPath,
-    required this.category,
     this.answers,
   });
 
   factory Question({
     int? id,
     required String audioPath,
-    required String category,
     List<_i2.Answer>? answers,
   }) = _QuestionImpl;
 
@@ -34,7 +32,6 @@ abstract class Question
     return Question(
       id: jsonSerialization['id'] as int?,
       audioPath: jsonSerialization['audioPath'] as String,
-      category: jsonSerialization['category'] as String,
       answers: (jsonSerialization['answers'] as List?)
           ?.map((e) => _i2.Answer.fromJson((e as Map<String, dynamic>)))
           .toList(),
@@ -50,8 +47,6 @@ abstract class Question
 
   String audioPath;
 
-  String category;
-
   List<_i2.Answer>? answers;
 
   @override
@@ -63,7 +58,6 @@ abstract class Question
   Question copyWith({
     int? id,
     String? audioPath,
-    String? category,
     List<_i2.Answer>? answers,
   });
   @override
@@ -71,7 +65,6 @@ abstract class Question
     return {
       if (id != null) 'id': id,
       'audioPath': audioPath,
-      'category': category,
       if (answers != null)
         'answers': answers?.toJson(valueToJson: (v) => v.toJson()),
     };
@@ -82,7 +75,6 @@ abstract class Question
     return {
       if (id != null) 'id': id,
       'audioPath': audioPath,
-      'category': category,
       if (answers != null)
         'answers': answers?.toJson(valueToJson: (v) => v.toJsonForProtocol()),
     };
@@ -124,12 +116,10 @@ class _QuestionImpl extends Question {
   _QuestionImpl({
     int? id,
     required String audioPath,
-    required String category,
     List<_i2.Answer>? answers,
   }) : super._(
           id: id,
           audioPath: audioPath,
-          category: category,
           answers: answers,
         );
 
@@ -140,13 +130,11 @@ class _QuestionImpl extends Question {
   Question copyWith({
     Object? id = _Undefined,
     String? audioPath,
-    String? category,
     Object? answers = _Undefined,
   }) {
     return Question(
       id: id is int? ? id : this.id,
       audioPath: audioPath ?? this.audioPath,
-      category: category ?? this.category,
       answers: answers is List<_i2.Answer>?
           ? answers
           : this.answers?.map((e0) => e0.copyWith()).toList(),
@@ -160,15 +148,9 @@ class QuestionTable extends _i1.Table<int?> {
       'audioPath',
       this,
     );
-    category = _i1.ColumnString(
-      'category',
-      this,
-    );
   }
 
   late final _i1.ColumnString audioPath;
-
-  late final _i1.ColumnString category;
 
   _i2.AnswerTable? ___answers;
 
@@ -209,7 +191,6 @@ class QuestionTable extends _i1.Table<int?> {
   List<_i1.Column> get columns => [
         id,
         audioPath,
-        category,
       ];
 
   @override

@@ -2,5 +2,4 @@ class: Question
 table: question
 fields:
   audioPath: String
-  category: String
   answers: List<Answer>?, relation(name=question_answers)

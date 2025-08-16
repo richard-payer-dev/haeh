@@ -15,7 +15,8 @@ import 'greeting.dart' as _i3;
 import 'recipes/answer.dart' as _i4;
 import 'recipes/question.dart' as _i5;
 import 'recipes/translation.dart' as _i6;
-import 'package:haeh_server/src/generated/recipes/translation.dart' as _i7;
+import 'package:haeh_server/src/generated/recipes/question.dart' as _i7;
+import 'package:haeh_server/src/generated/recipes/translation.dart' as _i8;
 export 'greeting.dart';
 export 'recipes/answer.dart';
 export 'recipes/question.dart';
@@ -105,12 +106,6 @@ class Protocol extends _i1.SerializationManagerServer {
         ),
         _i2.ColumnDefinition(
           name: 'audioPath',
-          columnType: _i2.ColumnType.text,
-          isNullable: false,
-          dartType: 'String',
-        ),
-        _i2.ColumnDefinition(
-          name: 'category',
           columnType: _i2.ColumnType.text,
           isNullable: false,
           dartType: 'String',
@@ -216,8 +211,12 @@ class Protocol extends _i1.SerializationManagerServer {
           ? (data as List).map((e) => deserialize<_i4.Answer>(e)).toList()
           : null) as T;
     }
-    if (t == List<_i7.Translation>) {
-      return (data as List).map((e) => deserialize<_i7.Translation>(e)).toList()
+    if (t == List<_i7.Question>) {
+      return (data as List).map((e) => deserialize<_i7.Question>(e)).toList()
+          as T;
+    }
+    if (t == List<_i8.Translation>) {
+      return (data as List).map((e) => deserialize<_i8.Translation>(e)).toList()
           as T;
     }
     try {

@@ -1,4 +1,6 @@
 greeting:
   - hello:
+question:
+  - getTranslations:
 translation:
   - getTranslations:

@@ -30,11 +30,12 @@ webServer:
 # If you are connecting on a public IP (e.g. on AWS or Google Cloud Run), you
 # connect on the public IP of the database e.g. database.examplepod.com.
 database:
-  host: database.private-production.examplepod.com
+  isUnixSocket: true
+  host: /cloudsql/flutter-hackathon-2025-haeh:europe-west3:hackathon2025/.s.PGSQL.5432
   port: 5432
   name: serverpod
   user: postgres
-  requireSsl: true
+#  requireSsl: true
   #isUnixSocket: true # defaults to false
 
 # This is the setup for Redis. The default for the Google Cloud Engine Terraform

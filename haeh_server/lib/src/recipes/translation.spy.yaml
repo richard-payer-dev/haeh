@@ -1,0 +1,4 @@
+class: Translation
+fields:
+  regexp: String
+  translation: String

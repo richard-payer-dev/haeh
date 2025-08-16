@@ -12,7 +12,10 @@
 import 'package:serverpod/serverpod.dart' as _i1;
 import 'package:serverpod/protocol.dart' as _i2;
 import 'greeting.dart' as _i3;
+import 'recipes/translation.dart' as _i4;
+import 'package:haeh_server/src/generated/recipes/translation.dart' as _i5;
 export 'greeting.dart';
+export 'recipes/translation.dart';
 
 class Protocol extends _i1.SerializationManagerServer {
   Protocol._();
@@ -34,8 +37,18 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i3.Greeting) {
       return _i3.Greeting.fromJson(data) as T;
     }
+    if (t == _i4.Translation) {
+      return _i4.Translation.fromJson(data) as T;
+    }
     if (t == _i1.getType<_i3.Greeting?>()) {
       return (data != null ? _i3.Greeting.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i4.Translation?>()) {
+      return (data != null ? _i4.Translation.fromJson(data) : null) as T;
+    }
+    if (t == List<_i5.Translation>) {
+      return (data as List).map((e) => deserialize<_i5.Translation>(e)).toList()
+          as T;
     }
     try {
       return _i2.Protocol().deserialize<T>(data, t);
@@ -49,6 +62,9 @@ class Protocol extends _i1.SerializationManagerServer {
     if (className != null) return className;
     if (data is _i3.Greeting) {
       return 'Greeting';
+    }
+    if (data is _i4.Translation) {
+      return 'Translation';
     }
     className = _i2.Protocol().getClassNameForObject(data);
     if (className != null) {
@@ -65,6 +81,9 @@ class Protocol extends _i1.SerializationManagerServer {
     }
     if (dataClassName == 'Greeting') {
       return deserialize<_i3.Greeting>(data['data']);
+    }
+    if (dataClassName == 'Translation') {
+      return deserialize<_i4.Translation>(data['data']);
     }
     if (dataClassName.startsWith('serverpod.')) {
       data['className'] = dataClassName.substring(10);

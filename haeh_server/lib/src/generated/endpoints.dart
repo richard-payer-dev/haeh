@@ -11,6 +11,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../greeting_endpoint.dart' as _i2;
+import '../translation_endpoint.dart' as _i3;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -21,7 +22,13 @@ class Endpoints extends _i1.EndpointDispatch {
           server,
           'greeting',
           null,
-        )
+        ),
+      'translation': _i3.TranslationEndpoint()
+        ..initialize(
+          server,
+          'translation',
+          null,
+        ),
     };
     connectors['greeting'] = _i1.EndpointConnector(
       name: 'greeting',
@@ -44,6 +51,22 @@ class Endpoints extends _i1.EndpointDispatch {
             session,
             params['name'],
           ),
+        )
+      },
+    );
+    connectors['translation'] = _i1.EndpointConnector(
+      name: 'translation',
+      endpoint: endpoints['translation']!,
+      methodConnectors: {
+        'getTranslations': _i1.MethodConnector(
+          name: 'getTranslations',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['translation'] as _i3.TranslationEndpoint)
+                  .getTranslations(session),
         )
       },
     );

@@ -12,7 +12,8 @@
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
 import 'package:haeh_client/src/protocol/greeting.dart' as _i3;
-import 'protocol.dart' as _i4;
+import 'package:haeh_client/src/protocol/recipes/translation.dart' as _i4;
+import 'protocol.dart' as _i5;
 
 /// This is an example endpoint that returns a greeting message through
 /// its [hello] method.
@@ -32,6 +33,21 @@ class EndpointGreeting extends _i1.EndpointRef {
       );
 }
 
+/// {@category Endpoint}
+class EndpointTranslation extends _i1.EndpointRef {
+  EndpointTranslation(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'translation';
+
+  _i2.Future<List<_i4.Translation>> getTranslations() =>
+      caller.callServerEndpoint<List<_i4.Translation>>(
+        'translation',
+        'getTranslations',
+        {},
+      );
+}
+
 class Client extends _i1.ServerpodClientShared {
   Client(
     String host, {
@@ -48,7 +64,7 @@ class Client extends _i1.ServerpodClientShared {
     bool? disconnectStreamsOnLostInternetConnection,
   }) : super(
           host,
-          _i4.Protocol(),
+          _i5.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -59,12 +75,18 @@ class Client extends _i1.ServerpodClientShared {
               disconnectStreamsOnLostInternetConnection,
         ) {
     greeting = EndpointGreeting(this);
+    translation = EndpointTranslation(this);
   }
 
   late final EndpointGreeting greeting;
 
+  late final EndpointTranslation translation;
+
   @override
-  Map<String, _i1.EndpointRef> get endpointRefLookup => {'greeting': greeting};
+  Map<String, _i1.EndpointRef> get endpointRefLookup => {
+        'greeting': greeting,
+        'translation': translation,
+      };
 
   @override
   Map<String, _i1.ModuleEndpointCaller> get moduleLookup => {};

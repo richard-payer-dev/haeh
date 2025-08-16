@@ -16,14 +16,12 @@ abstract class Question implements _i1.SerializableModel {
   Question._({
     this.id,
     required this.audioPath,
-    required this.category,
     this.answers,
   });
 
   factory Question({
     int? id,
     required String audioPath,
-    required String category,
     List<_i2.Answer>? answers,
   }) = _QuestionImpl;
 
@@ -31,7 +29,6 @@ abstract class Question implements _i1.SerializableModel {
     return Question(
       id: jsonSerialization['id'] as int?,
       audioPath: jsonSerialization['audioPath'] as String,
-      category: jsonSerialization['category'] as String,
       answers: (jsonSerialization['answers'] as List?)
           ?.map((e) => _i2.Answer.fromJson((e as Map<String, dynamic>)))
           .toList(),
@@ -45,8 +42,6 @@ abstract class Question implements _i1.SerializableModel {
 
   String audioPath;
 
-  String category;
-
   List<_i2.Answer>? answers;
 
   /// Returns a shallow copy of this [Question]
@@ -55,7 +50,6 @@ abstract class Question implements _i1.SerializableModel {
   Question copyWith({
     int? id,
     String? audioPath,
-    String? category,
     List<_i2.Answer>? answers,
   });
   @override
@@ -63,7 +57,6 @@ abstract class Question implements _i1.SerializableModel {
     return {
       if (id != null) 'id': id,
       'audioPath': audioPath,
-      'category': category,
       if (answers != null)
         'answers': answers?.toJson(valueToJson: (v) => v.toJson()),
     };
@@ -81,12 +74,10 @@ class _QuestionImpl extends Question {
   _QuestionImpl({
     int? id,
     required String audioPath,
-    required String category,
     List<_i2.Answer>? answers,
   }) : super._(
           id: id,
           audioPath: audioPath,
-          category: category,
           answers: answers,
         );
 
@@ -97,13 +88,11 @@ class _QuestionImpl extends Question {
   Question copyWith({
     Object? id = _Undefined,
     String? audioPath,
-    String? category,
     Object? answers = _Undefined,
   }) {
     return Question(
       id: id is int? ? id : this.id,
       audioPath: audioPath ?? this.audioPath,
-      category: category ?? this.category,
       answers: answers is List<_i2.Answer>?
           ? answers
           : this.answers?.map((e0) => e0.copyWith()).toList(),

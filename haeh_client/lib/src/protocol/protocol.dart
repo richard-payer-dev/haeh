@@ -14,7 +14,8 @@ import 'greeting.dart' as _i2;
 import 'recipes/answer.dart' as _i3;
 import 'recipes/question.dart' as _i4;
 import 'recipes/translation.dart' as _i5;
-import 'package:haeh_client/src/protocol/recipes/translation.dart' as _i6;
+import 'package:haeh_client/src/protocol/recipes/question.dart' as _i6;
+import 'package:haeh_client/src/protocol/recipes/translation.dart' as _i7;
 export 'greeting.dart';
 export 'recipes/answer.dart';
 export 'recipes/question.dart';
@@ -63,8 +64,12 @@ class Protocol extends _i1.SerializationManager {
           ? (data as List).map((e) => deserialize<_i3.Answer>(e)).toList()
           : null) as T;
     }
-    if (t == List<_i6.Translation>) {
-      return (data as List).map((e) => deserialize<_i6.Translation>(e)).toList()
+    if (t == List<_i6.Question>) {
+      return (data as List).map((e) => deserialize<_i6.Question>(e)).toList()
+          as T;
+    }
+    if (t == List<_i7.Translation>) {
+      return (data as List).map((e) => deserialize<_i7.Translation>(e)).toList()
           as T;
     }
     return super.deserialize<T>(data, t);

@@ -12,8 +12,9 @@
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
 import 'package:haeh_client/src/protocol/greeting.dart' as _i3;
-import 'package:haeh_client/src/protocol/recipes/translation.dart' as _i4;
-import 'protocol.dart' as _i5;
+import 'package:haeh_client/src/protocol/recipes/question.dart' as _i4;
+import 'package:haeh_client/src/protocol/recipes/translation.dart' as _i5;
+import 'protocol.dart' as _i6;
 
 /// This is an example endpoint that returns a greeting message through
 /// its [hello] method.
@@ -34,14 +35,29 @@ class EndpointGreeting extends _i1.EndpointRef {
 }
 
 /// {@category Endpoint}
+class EndpointQuestion extends _i1.EndpointRef {
+  EndpointQuestion(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'question';
+
+  _i2.Future<List<_i4.Question>> getTranslations() =>
+      caller.callServerEndpoint<List<_i4.Question>>(
+        'question',
+        'getTranslations',
+        {},
+      );
+}
+
+/// {@category Endpoint}
 class EndpointTranslation extends _i1.EndpointRef {
   EndpointTranslation(_i1.EndpointCaller caller) : super(caller);
 
   @override
   String get name => 'translation';
 
-  _i2.Future<List<_i4.Translation>> getTranslations() =>
-      caller.callServerEndpoint<List<_i4.Translation>>(
+  _i2.Future<List<_i5.Translation>> getTranslations() =>
+      caller.callServerEndpoint<List<_i5.Translation>>(
         'translation',
         'getTranslations',
         {},
@@ -64,7 +80,7 @@ class Client extends _i1.ServerpodClientShared {
     bool? disconnectStreamsOnLostInternetConnection,
   }) : super(
           host,
-          _i5.Protocol(),
+          _i6.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -75,16 +91,20 @@ class Client extends _i1.ServerpodClientShared {
               disconnectStreamsOnLostInternetConnection,
         ) {
     greeting = EndpointGreeting(this);
+    question = EndpointQuestion(this);
     translation = EndpointTranslation(this);
   }
 
   late final EndpointGreeting greeting;
+
+  late final EndpointQuestion question;
 
   late final EndpointTranslation translation;
 
   @override
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
         'greeting': greeting,
+        'question': question,
         'translation': translation,
       };
 

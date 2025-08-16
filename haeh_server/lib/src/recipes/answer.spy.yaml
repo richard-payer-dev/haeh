@@ -1,0 +1,6 @@
+class: Answer
+table: answer
+fields:
+  isCorrect: bool
+  text: String
+  question: Question?, relation(name=question_answers)

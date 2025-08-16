@@ -1,0 +1,6 @@
+class: SoundBites
+table: sound_bites
+fields:
+  url: String
+  category: String
+  name: String

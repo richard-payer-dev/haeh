@@ -13,8 +13,9 @@ import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
 import 'package:haeh_client/src/protocol/greeting.dart' as _i3;
 import 'package:haeh_client/src/protocol/recipes/question.dart' as _i4;
-import 'package:haeh_client/src/protocol/recipes/translation.dart' as _i5;
-import 'protocol.dart' as _i6;
+import 'package:haeh_client/src/protocol/recipes/sound_bites.dart' as _i5;
+import 'package:haeh_client/src/protocol/recipes/translation.dart' as _i6;
+import 'protocol.dart' as _i7;
 
 /// This is an example endpoint that returns a greeting message through
 /// its [hello] method.
@@ -50,14 +51,29 @@ class EndpointQuestion extends _i1.EndpointRef {
 }
 
 /// {@category Endpoint}
+class EndpointSoundBites extends _i1.EndpointRef {
+  EndpointSoundBites(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'soundBites';
+
+  _i2.Future<List<_i5.SoundBites>> getSoundBites() =>
+      caller.callServerEndpoint<List<_i5.SoundBites>>(
+        'soundBites',
+        'getSoundBites',
+        {},
+      );
+}
+
+/// {@category Endpoint}
 class EndpointTranslation extends _i1.EndpointRef {
   EndpointTranslation(_i1.EndpointCaller caller) : super(caller);
 
   @override
   String get name => 'translation';
 
-  _i2.Future<List<_i5.Translation>> getTranslations() =>
-      caller.callServerEndpoint<List<_i5.Translation>>(
+  _i2.Future<List<_i6.Translation>> getTranslations() =>
+      caller.callServerEndpoint<List<_i6.Translation>>(
         'translation',
         'getTranslations',
         {},
@@ -80,7 +96,7 @@ class Client extends _i1.ServerpodClientShared {
     bool? disconnectStreamsOnLostInternetConnection,
   }) : super(
           host,
-          _i6.Protocol(),
+          _i7.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -92,6 +108,7 @@ class Client extends _i1.ServerpodClientShared {
         ) {
     greeting = EndpointGreeting(this);
     question = EndpointQuestion(this);
+    soundBites = EndpointSoundBites(this);
     translation = EndpointTranslation(this);
   }
 
@@ -99,12 +116,15 @@ class Client extends _i1.ServerpodClientShared {
 
   late final EndpointQuestion question;
 
+  late final EndpointSoundBites soundBites;
+
   late final EndpointTranslation translation;
 
   @override
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
         'greeting': greeting,
         'question': question,
+        'soundBites': soundBites,
         'translation': translation,
       };
 

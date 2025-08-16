@@ -14,12 +14,15 @@ import 'package:serverpod/protocol.dart' as _i2;
 import 'greeting.dart' as _i3;
 import 'recipes/answer.dart' as _i4;
 import 'recipes/question.dart' as _i5;
-import 'recipes/translation.dart' as _i6;
-import 'package:haeh_server/src/generated/recipes/question.dart' as _i7;
-import 'package:haeh_server/src/generated/recipes/translation.dart' as _i8;
+import 'recipes/sound_bites.dart' as _i6;
+import 'recipes/translation.dart' as _i7;
+import 'package:haeh_server/src/generated/recipes/question.dart' as _i8;
+import 'package:haeh_server/src/generated/recipes/sound_bites.dart' as _i9;
+import 'package:haeh_server/src/generated/recipes/translation.dart' as _i10;
 export 'greeting.dart';
 export 'recipes/answer.dart';
 export 'recipes/question.dart';
+export 'recipes/sound_bites.dart';
 export 'recipes/translation.dart';
 
 class Protocol extends _i1.SerializationManagerServer {
@@ -130,6 +133,56 @@ class Protocol extends _i1.SerializationManagerServer {
       managed: true,
     ),
     _i2.TableDefinition(
+      name: 'sound_bites',
+      dartName: 'SoundBites',
+      schema: 'public',
+      module: 'haeh',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'sound_bites_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'url',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'category',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'name',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+      ],
+      foreignKeys: [],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'sound_bites_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        )
+      ],
+      managed: true,
+    ),
+    _i2.TableDefinition(
       name: 'translation',
       dartName: 'Translation',
       schema: 'public',
@@ -191,8 +244,11 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i5.Question) {
       return _i5.Question.fromJson(data) as T;
     }
-    if (t == _i6.Translation) {
-      return _i6.Translation.fromJson(data) as T;
+    if (t == _i6.SoundBites) {
+      return _i6.SoundBites.fromJson(data) as T;
+    }
+    if (t == _i7.Translation) {
+      return _i7.Translation.fromJson(data) as T;
     }
     if (t == _i1.getType<_i3.Greeting?>()) {
       return (data != null ? _i3.Greeting.fromJson(data) : null) as T;
@@ -203,21 +259,29 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i1.getType<_i5.Question?>()) {
       return (data != null ? _i5.Question.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i6.Translation?>()) {
-      return (data != null ? _i6.Translation.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i6.SoundBites?>()) {
+      return (data != null ? _i6.SoundBites.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i7.Translation?>()) {
+      return (data != null ? _i7.Translation.fromJson(data) : null) as T;
     }
     if (t == _i1.getType<List<_i4.Answer>?>()) {
       return (data != null
           ? (data as List).map((e) => deserialize<_i4.Answer>(e)).toList()
           : null) as T;
     }
-    if (t == List<_i7.Question>) {
-      return (data as List).map((e) => deserialize<_i7.Question>(e)).toList()
+    if (t == List<_i8.Question>) {
+      return (data as List).map((e) => deserialize<_i8.Question>(e)).toList()
           as T;
     }
-    if (t == List<_i8.Translation>) {
-      return (data as List).map((e) => deserialize<_i8.Translation>(e)).toList()
+    if (t == List<_i9.SoundBites>) {
+      return (data as List).map((e) => deserialize<_i9.SoundBites>(e)).toList()
           as T;
+    }
+    if (t == List<_i10.Translation>) {
+      return (data as List)
+          .map((e) => deserialize<_i10.Translation>(e))
+          .toList() as T;
     }
     try {
       return _i2.Protocol().deserialize<T>(data, t);
@@ -238,7 +302,10 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is _i5.Question) {
       return 'Question';
     }
-    if (data is _i6.Translation) {
+    if (data is _i6.SoundBites) {
+      return 'SoundBites';
+    }
+    if (data is _i7.Translation) {
       return 'Translation';
     }
     className = _i2.Protocol().getClassNameForObject(data);
@@ -263,8 +330,11 @@ class Protocol extends _i1.SerializationManagerServer {
     if (dataClassName == 'Question') {
       return deserialize<_i5.Question>(data['data']);
     }
+    if (dataClassName == 'SoundBites') {
+      return deserialize<_i6.SoundBites>(data['data']);
+    }
     if (dataClassName == 'Translation') {
-      return deserialize<_i6.Translation>(data['data']);
+      return deserialize<_i7.Translation>(data['data']);
     }
     if (dataClassName.startsWith('serverpod.')) {
       data['className'] = dataClassName.substring(10);
@@ -286,8 +356,10 @@ class Protocol extends _i1.SerializationManagerServer {
         return _i4.Answer.t;
       case _i5.Question:
         return _i5.Question.t;
-      case _i6.Translation:
-        return _i6.Translation.t;
+      case _i6.SoundBites:
+        return _i6.SoundBites.t;
+      case _i7.Translation:
+        return _i7.Translation.t;
     }
     return null;
   }

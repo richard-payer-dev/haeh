@@ -12,7 +12,8 @@
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../greeting_endpoint.dart' as _i2;
 import '../question_endpoint.dart' as _i3;
-import '../translation_endpoint.dart' as _i4;
+import '../sound_bites_endpoint.dart' as _i4;
+import '../translation_endpoint.dart' as _i5;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -30,7 +31,13 @@ class Endpoints extends _i1.EndpointDispatch {
           'question',
           null,
         ),
-      'translation': _i4.TranslationEndpoint()
+      'soundBites': _i4.SoundBitesEndpoint()
+        ..initialize(
+          server,
+          'soundBites',
+          null,
+        ),
+      'translation': _i5.TranslationEndpoint()
         ..initialize(
           server,
           'translation',
@@ -77,6 +84,22 @@ class Endpoints extends _i1.EndpointDispatch {
         )
       },
     );
+    connectors['soundBites'] = _i1.EndpointConnector(
+      name: 'soundBites',
+      endpoint: endpoints['soundBites']!,
+      methodConnectors: {
+        'getSoundBites': _i1.MethodConnector(
+          name: 'getSoundBites',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['soundBites'] as _i4.SoundBitesEndpoint)
+                  .getSoundBites(session),
+        )
+      },
+    );
     connectors['translation'] = _i1.EndpointConnector(
       name: 'translation',
       endpoint: endpoints['translation']!,
@@ -88,7 +111,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['translation'] as _i4.TranslationEndpoint)
+              (endpoints['translation'] as _i5.TranslationEndpoint)
                   .getTranslations(session),
         )
       },

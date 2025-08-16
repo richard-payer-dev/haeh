@@ -16,7 +16,8 @@ import 'package:serverpod/serverpod.dart' as _i2;
 import 'dart:async' as _i3;
 import 'package:haeh_server/src/generated/greeting.dart' as _i4;
 import 'package:haeh_server/src/generated/recipes/question.dart' as _i5;
-import 'package:haeh_server/src/generated/recipes/translation.dart' as _i6;
+import 'package:haeh_server/src/generated/recipes/sound_bites.dart' as _i6;
+import 'package:haeh_server/src/generated/recipes/translation.dart' as _i7;
 import 'package:haeh_server/src/generated/protocol.dart';
 import 'package:haeh_server/src/generated/endpoints.dart';
 export 'package:serverpod_test/serverpod_test_public_exports.dart';
@@ -107,6 +108,8 @@ class TestEndpoints {
 
   late final _QuestionEndpoint question;
 
+  late final _SoundBitesEndpoint soundBites;
+
   late final _TranslationEndpoint translation;
 }
 
@@ -122,6 +125,10 @@ class _InternalTestEndpoints extends TestEndpoints
       serializationManager,
     );
     question = _QuestionEndpoint(
+      endpoints,
+      serializationManager,
+    );
+    soundBites = _SoundBitesEndpoint(
       endpoints,
       serializationManager,
     );
@@ -210,6 +217,44 @@ class _QuestionEndpoint {
   }
 }
 
+class _SoundBitesEndpoint {
+  _SoundBitesEndpoint(
+    this._endpointDispatch,
+    this._serializationManager,
+  );
+
+  final _i2.EndpointDispatch _endpointDispatch;
+
+  final _i2.SerializationManager _serializationManager;
+
+  _i3.Future<List<_i6.SoundBites>> getSoundBites(
+      _i1.TestSessionBuilder sessionBuilder) async {
+    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+        endpoint: 'soundBites',
+        method: 'getSoundBites',
+      );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'soundBites',
+          methodName: 'getSoundBites',
+          parameters: _i1.testObjectToJson({}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue = await (_localCallContext.method.call(
+          _localUniqueSession,
+          _localCallContext.arguments,
+        ) as _i3.Future<List<_i6.SoundBites>>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+}
+
 class _TranslationEndpoint {
   _TranslationEndpoint(
     this._endpointDispatch,
@@ -220,7 +265,7 @@ class _TranslationEndpoint {
 
   final _i2.SerializationManager _serializationManager;
 
-  _i3.Future<List<_i6.Translation>> getTranslations(
+  _i3.Future<List<_i7.Translation>> getTranslations(
       _i1.TestSessionBuilder sessionBuilder) async {
     return _i1.callAwaitableFunctionAndHandleExceptions(() async {
       var _localUniqueSession =
@@ -239,7 +284,7 @@ class _TranslationEndpoint {
         var _localReturnValue = await (_localCallContext.method.call(
           _localUniqueSession,
           _localCallContext.arguments,
-        ) as _i3.Future<List<_i6.Translation>>);
+        ) as _i3.Future<List<_i7.Translation>>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();

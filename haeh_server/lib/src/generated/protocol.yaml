@@ -2,5 +2,7 @@ greeting:
   - hello:
 question:
   - getQuestions:
+soundBites:
+  - getSoundBites:
 translation:
   - getTranslations:

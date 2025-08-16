@@ -182,19 +182,19 @@ class _QuestionEndpoint {
 
   final _i2.SerializationManager _serializationManager;
 
-  _i3.Future<List<_i5.Question>> getTranslations(
+  _i3.Future<List<_i5.Question>> getQuestions(
       _i1.TestSessionBuilder sessionBuilder) async {
     return _i1.callAwaitableFunctionAndHandleExceptions(() async {
       var _localUniqueSession =
           (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
         endpoint: 'question',
-        method: 'getTranslations',
+        method: 'getQuestions',
       );
       try {
         var _localCallContext = await _endpointDispatch.getMethodCallContext(
           createSessionCallback: (_) => _localUniqueSession,
           endpointPath: 'question',
-          methodName: 'getTranslations',
+          methodName: 'getQuestions',
           parameters: _i1.testObjectToJson({}),
           serializationManager: _serializationManager,
         );

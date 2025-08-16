@@ -65,15 +65,15 @@ class Endpoints extends _i1.EndpointDispatch {
       name: 'question',
       endpoint: endpoints['question']!,
       methodConnectors: {
-        'getTranslations': _i1.MethodConnector(
-          name: 'getTranslations',
+        'getQuestions': _i1.MethodConnector(
+          name: 'getQuestions',
           params: {},
           call: (
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
               (endpoints['question'] as _i3.QuestionEndpoint)
-                  .getTranslations(session),
+                  .getQuestions(session),
         )
       },
     );

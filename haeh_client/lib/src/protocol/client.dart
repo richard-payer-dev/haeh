@@ -41,10 +41,10 @@ class EndpointQuestion extends _i1.EndpointRef {
   @override
   String get name => 'question';
 
-  _i2.Future<List<_i4.Question>> getTranslations() =>
+  _i2.Future<List<_i4.Question>> getQuestions() =>
       caller.callServerEndpoint<List<_i4.Question>>(
         'question',
-        'getTranslations',
+        'getQuestions',
         {},
       );
 }

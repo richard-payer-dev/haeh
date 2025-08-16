@@ -1,6 +1,6 @@
 greeting:
   - hello:
 question:
-  - getTranslations:
+  - getQuestions:
 translation:
   - getTranslations:

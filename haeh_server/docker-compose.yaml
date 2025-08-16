@@ -1,0 +1,44 @@
+services:
+  # Development services
+  postgres:
+    image: pgvector/pgvector:pg16
+    ports:
+      - "8090:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: haeh
+      POSTGRES_PASSWORD: "Pvph97S6h9Jrpq76x4YFI2S7O94nwUgw"
+    volumes:
+      - haeh_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:6.2.6
+    ports:
+      - "8091:6379"
+    command: redis-server --requirepass "IZ_RZ21AnsYnxMraUGsul03EHTMR9Q7L"
+    environment:
+      - REDIS_REPLICATION_MODE=master
+
+  # Test services
+  postgres_test:
+    image: pgvector/pgvector:pg16
+    ports:
+      - "9090:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: haeh_test
+      POSTGRES_PASSWORD: "ELJxKM2m-zubXdEZ8TwLkd2lsciWmAzv"
+    volumes:
+      - haeh_test_data:/var/lib/postgresql/data
+
+  redis_test:
+    image: redis:6.2.6
+    ports:
+      - "9091:6379"
+    command: redis-server --requirepass "veDx_Uf6q4a9l0_nt34zsI21qo0Cb19h"
+    environment:
+      - REDIS_REPLICATION_MODE=master
+
+volumes:
+  haeh_data:
+  haeh_test_data:

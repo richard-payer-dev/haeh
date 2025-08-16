@@ -25,7 +25,51 @@ class Protocol extends _i1.SerializationManagerServer {
   static final Protocol _instance = Protocol._();
 
   static final List<_i2.TableDefinition> targetTableDefinitions = [
-    ..._i2.Protocol.targetTableDefinitions
+    _i2.TableDefinition(
+      name: 'translation',
+      dartName: 'Translation',
+      schema: 'public',
+      module: 'haeh',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'translation_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'regexp',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'translation',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+      ],
+      foreignKeys: [],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'translation_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        )
+      ],
+      managed: true,
+    ),
+    ..._i2.Protocol.targetTableDefinitions,
   ];
 
   @override
@@ -99,6 +143,10 @@ class Protocol extends _i1.SerializationManagerServer {
       if (table != null) {
         return table;
       }
+    }
+    switch (t) {
+      case _i4.Translation:
+        return _i4.Translation.t;
     }
     return null;
   }

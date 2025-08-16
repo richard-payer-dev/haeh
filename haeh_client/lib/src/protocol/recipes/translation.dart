@@ -13,21 +13,29 @@ import 'package:serverpod_client/serverpod_client.dart' as _i1;
 
 abstract class Translation implements _i1.SerializableModel {
   Translation._({
+    this.id,
     required this.regexp,
     required this.translation,
   });
 
   factory Translation({
+    int? id,
     required String regexp,
     required String translation,
   }) = _TranslationImpl;
 
   factory Translation.fromJson(Map<String, dynamic> jsonSerialization) {
     return Translation(
+      id: jsonSerialization['id'] as int?,
       regexp: jsonSerialization['regexp'] as String,
       translation: jsonSerialization['translation'] as String,
     );
   }
+
+  /// The database id, set if the object has been inserted into the
+  /// database or if it has been fetched from the database. Otherwise,
+  /// the id will be null.
+  int? id;
 
   String regexp;
 
@@ -37,12 +45,14 @@ abstract class Translation implements _i1.SerializableModel {
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
   Translation copyWith({
+    int? id,
     String? regexp,
     String? translation,
   });
   @override
   Map<String, dynamic> toJson() {
     return {
+      if (id != null) 'id': id,
       'regexp': regexp,
       'translation': translation,
     };
@@ -54,11 +64,15 @@ abstract class Translation implements _i1.SerializableModel {
   }
 }
 
+class _Undefined {}
+
 class _TranslationImpl extends Translation {
   _TranslationImpl({
+    int? id,
     required String regexp,
     required String translation,
   }) : super._(
+          id: id,
           regexp: regexp,
           translation: translation,
         );
@@ -68,10 +82,12 @@ class _TranslationImpl extends Translation {
   @_i1.useResult
   @override
   Translation copyWith({
+    Object? id = _Undefined,
     String? regexp,
     String? translation,
   }) {
     return Translation(
+      id: id is int? ? id : this.id,
       regexp: regexp ?? this.regexp,
       translation: translation ?? this.translation,
     );
